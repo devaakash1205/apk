@@ -6,6 +6,9 @@ import useLocalStorage from '@/hooks/use-local-storage';
 import { MOCK_CONTACTS, MOCK_USER, MOCK_ACCOUNTS } from '@/lib/constants';
 
 interface AppContextType {
+  isAppLoading: boolean;
+  isOnboardingComplete: boolean;
+  setOnboardingComplete: (status: boolean) => void;
   user: User;
   updateUser: (user: User) => void;
   accounts: BankAccount[];
@@ -29,10 +32,20 @@ interface AppContextType {
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export const AppProvider = ({ children }: { children: ReactNode }) => {
+  const [isAppLoading, setIsAppLoading] = useState(true);
+  const [isOnboardingComplete, setOnboardingComplete] = useLocalStorage<boolean>('onboardingComplete', false);
   const [user, setUser] = useLocalStorage<User>('user', MOCK_USER);
   const [accounts, setAccounts] = useLocalStorage<BankAccount[]>('accounts', MOCK_ACCOUNTS);
   const [transactions, setTransactions] = useLocalStorage<Transaction[]>('transactions', []);
   const [contacts, setContacts] = useLocalStorage<Contact[]>('contacts', MOCK_CONTACTS);
+
+  useEffect(() => {
+    // Simulate app loading
+    const timer = setTimeout(() => {
+        setIsAppLoading(false);
+    }, 1500);
+    return () => clearTimeout(timer);
+  }, []);
 
   const updateUser = (updatedUser: User) => {
     setUser(updatedUser);
@@ -111,6 +124,9 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const value = {
+    isAppLoading,
+    isOnboardingComplete,
+    setOnboardingComplete,
     user,
     updateUser,
     accounts,

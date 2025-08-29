@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { Providers } from '@/components/Providers';
-import { BottomNav } from '@/components/BottomNav';
 import { Toaster } from '@/components/ui/toaster';
 import { cn } from '@/lib/utils';
+import { AppContent } from '@/components/AppContent';
 
 export const metadata: Metadata = {
   title: 'PhonePay Prototype',
@@ -27,11 +27,12 @@ export default function RootLayout({
       </head>
       <body className={cn('font-body antialiased bg-neutral-100 dark:bg-neutral-900')}>
         <Providers>
-          <div className="relative mx-auto flex h-[100dvh] max-w-sm flex-col overflow-hidden border-x border-neutral-200 bg-background shadow-2xl dark:border-neutral-800">
-            <main className="flex-1 overflow-y-auto no-scrollbar">{children}</main>
-            <BottomNav />
-            <Toaster />
-          </div>
+            <div className="relative mx-auto flex h-[100dvh] max-w-sm flex-col overflow-hidden border-x border-neutral-200 bg-background shadow-2xl dark:border-neutral-800">
+                <AppContent>
+                  {children}
+                </AppContent>
+                <Toaster />
+            </div>
         </Providers>
       </body>
     </html>

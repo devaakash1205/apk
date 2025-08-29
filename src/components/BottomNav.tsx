@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, History, Wallet, User } from "lucide-react";
+import { Home, History, Wallet, User, BadgeIndianRupee } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navItems = [
   { href: "/", label: "Home", icon: Home },
   { href: "/history", label: "History", icon: History },
   { href: "/accounts", label: "My Money", icon: Wallet },
+  { href: "/rewards", label: "Rewards", icon: BadgeIndianRupee },
   { href: "/profile", label: "Profile", icon: User },
 ];
 
@@ -16,7 +17,7 @@ export function BottomNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="sticky bottom-0 left-0 right-0 border-t bg-background/95 backdrop-blur-sm">
+    <nav className="sticky bottom-0 left-0 right-0 border-t bg-background/95 backdrop-blur-sm z-20">
       <div className="flex h-16 justify-around">
         {navItems.map((item) => {
           const isActive = pathname === item.href;

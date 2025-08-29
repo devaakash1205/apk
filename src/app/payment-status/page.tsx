@@ -3,8 +3,11 @@
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useApp } from '@/contexts/AppContext';
 import { Button } from '@/components/ui/button';
-import { CheckCircle2, XCircle, ArrowLeft } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { Suspense } from 'react';
+import Lottie from "lottie-react";
+import successAnimation from "@/components/animations/success.json";
+import failureAnimation from "@/components/animations/failure.json";
 
 function PaymentStatusContent() {
     const router = useRouter();
@@ -26,11 +29,12 @@ function PaymentStatusContent() {
 
     return (
         <div className="flex flex-col items-center justify-center h-full text-center p-4">
-            {isSuccess ? (
-                <CheckCircle2 className="w-24 h-24 text-green-500 mb-6" />
-            ) : (
-                <XCircle className="w-24 h-24 text-destructive mb-6" />
-            )}
+            <div className="w-40 h-40">
+                 <Lottie 
+                    animationData={isSuccess ? successAnimation : failureAnimation} 
+                    loop={false}
+                />
+            </div>
             
             <h1 className="text-2xl font-bold mb-2">
                 {isSuccess ? 'Payment Successful' : 'Payment Failed'}
@@ -47,7 +51,7 @@ function PaymentStatusContent() {
                 ₹{transaction.amount.toLocaleString('en-IN')}
             </p>
             
-            <div className="text-sm text-muted-foreground">
+            <div className="text-sm text-muted-foreground bg-muted p-3 rounded-lg">
                 <p>Transaction ID: {transaction.id}</p>
                 <p>{new Date(transaction.date).toLocaleString()}</p>
             </div>
