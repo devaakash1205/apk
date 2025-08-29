@@ -7,6 +7,7 @@ import { MOCK_CONTACTS, MOCK_USER, MOCK_ACCOUNTS } from '@/lib/constants';
 
 interface AppContextType {
   user: User;
+  updateUser: (user: User) => void;
   accounts: BankAccount[];
   transactions: Transaction[];
   contacts: Contact[];
@@ -33,6 +34,10 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [transactions, setTransactions] = useLocalStorage<Transaction[]>('transactions', []);
   const [contacts, setContacts] = useLocalStorage<Contact[]>('contacts', MOCK_CONTACTS);
 
+  const updateUser = (updatedUser: User) => {
+    setUser(updatedUser);
+  };
+  
   const addAccount = (accountData: Omit<BankAccount, 'id' | 'balance'>) => {
     const upiExists = accounts.some(acc => acc.upiId === accountData.upiId);
     if (upiExists) {
@@ -107,6 +112,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
 
   const value = {
     user,
+    updateUser,
     accounts,
     transactions,
     contacts,
