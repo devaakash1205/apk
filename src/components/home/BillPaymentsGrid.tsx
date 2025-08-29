@@ -1,7 +1,7 @@
 "use client";
 
 import Link from 'next/link';
-import { Smartphone, MonitorPlay, Lightbulb, CreditCard, Landmark, CircleHelp, GasPump, Grid } from "lucide-react";
+import { Smartphone, MonitorPlay, Lightbulb, CreditCard, Landmark, CircleHelp, Fuel, Grid } from "lucide-react";
 import { Card, CardContent } from '../ui/card';
 
 const bills = [
@@ -10,7 +10,7 @@ const bills = [
   { href: "/bills/electricity", label: "Electricity", icon: Lightbulb },
   { href: "/bills/credit-card", label: "Credit Card", icon: CreditCard },
   { href: "/bills/loan", label: "Loan Repayment", icon: Landmark },
-  { href: "/bills/cylinder", label: "Book Cylinder", icon: GasPump },
+  { href: "/bills/cylinder", label: "Book Cylinder", icon: Fuel },
   { href: "/bills/piped-gas", label: "Piped Gas", icon: CircleHelp },
   { href: "/bills/all", label: "See All", icon: Grid },
 ];
