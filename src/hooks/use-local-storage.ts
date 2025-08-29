@@ -1,24 +1,28 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T) => void] {
+  // Use a ref to store initialValue to prevent re-renders from non-primitive initial values.
+  const initialValueRef = useRef(initialValue);
   const [storedValue, setStoredValue] = useState<T>(initialValue);
 
   useEffect(() => {
+    let value: T;
     try {
       const item = window.localStorage.getItem(key);
       if (item) {
-        setStoredValue(JSON.parse(item));
+        value = JSON.parse(item);
       } else {
-        window.localStorage.setItem(key, JSON.stringify(initialValue));
-        setStoredValue(initialValue);
+        value = initialValueRef.current;
+        window.localStorage.setItem(key, JSON.stringify(value));
       }
     } catch (error) {
       console.log(error);
-      setStoredValue(initialValue);
+      value = initialValueRef.current;
     }
-  }, [key, initialValue]);
+    setStoredValue(value);
+  }, [key]);
 
   const setValue = (value: T) => {
     try {
