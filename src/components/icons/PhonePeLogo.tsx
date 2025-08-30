@@ -10,7 +10,7 @@ export function PhonePeLogo(props: SVGProps<SVGSVGElement>) {
       fill="currentColor"
       {...props}
     >
-      <circle cx="50" cy="50" r="50" fill="#5f259f" />
+      <circle cx="50" cy="50" r="50" fill="currentColor" />
       <path
         d="M62.3,42.9H44.1c-1.1,0-2,0.9-2,2v22.4c0,1.1,0.9,2,2,2h18.2c1.1,0,2-0.9,2-2V44.9C64.3,43.8,63.4,42.9,62.3,42.9z M59.8,64.8H46.6V47.4h13.2V64.8z"
         fill="#ffffff"
